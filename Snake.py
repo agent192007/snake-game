@@ -14,7 +14,6 @@ class Snake:
         self.last_pop = ()
         self.scoreboard = Scoreboard()
 
-
         for position in self.positions:
             new_segment = Turtle('square')
             new_segment.color('white')
@@ -26,6 +25,7 @@ class Snake:
         return self.positions
 
     def snake_loop(self, food):
+
         def move(key):
             if key == 'w':
                 if self.direction in ['left', 'right'] and self.clicked is False:
@@ -65,7 +65,13 @@ class Snake:
             temp[0] += 20
         self.positions.append(tuple(temp))
 
-        if food.cord != self.positions[-1]:
+        head_cord = self.positions[-1]
+        print(head_cord)
+
+        if 400 in head_cord or -400 in head_cord or head_cord in self.positions[:-1]:
+            self.scoreboard.game_over()
+            return False
+        elif food.cord != head_cord:
             self.positions.pop(0)
         else:
             new_segment = Turtle('square')
@@ -77,3 +83,4 @@ class Snake:
 
         for position, segment in zip(self.positions, self.segments):
             segment.goto(position)
+        return True

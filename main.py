@@ -12,6 +12,20 @@ screen.bgcolor("black")
 screen.title("Snake Game")
 screen.tracer(0)
 
+border = Turtle()
+border.penup()
+border.goto(400,400)
+border.shape("square")
+border.color('white')
+border.pensize(20)
+border.pendown()
+border.goto(400,-400)
+border.goto(-400,-400)
+border.goto(-400,400)
+border.goto(400,400)
+border.hideturtle()
+
+
 
 def exit_game():
     turtle.exitonclick()
@@ -20,8 +34,11 @@ def exit_game():
 food = Food(screen, screen_width)
 snake = Snake(screen_width)
 screen.update()
+loop = True
 
-while True:
-    snake.snake_loop(food)
+while loop:
+    loop = snake.snake_loop(food)
     time.sleep(0.1)
     screen.update()
+
+screen.exitonclick()
